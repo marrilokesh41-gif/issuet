@@ -9,95 +9,112 @@ st.set_page_config(page_title="Issuet Hiring Assistant", layout="centered")
 # ✅ Backend URL (Deployed on Render)
 BACKEND_URL = "https://issuet-3dxf.onrender.com/api/candidates/"
 
-# 🖤 Improved Visibility Theme
-st.markdown(
-    """
-    <style>
-    #MainMenu, footer, header {visibility: hidden;}
+# 🎨 Custom CSS — improved mobile view, visible alerts & button
+st.markdown("""
+<style>
+#MainMenu, footer, header {visibility: hidden;}
 
-    .stApp {
-        background: linear-gradient(120deg, #f3f6ff 0%, #eef2f9 100%);
-        font-family: 'Poppins', sans-serif;
-        color: #000000 !important;
-    }
+.stApp {
+    background: linear-gradient(120deg, #f3f6ff 0%, #eef2f9 100%);
+    font-family: 'Poppins', sans-serif;
+    color: #000000 !important;
+    padding-bottom: 120px !important; /* Ensure footer & messages visible */
+}
 
-    .card {
-        width: 100%;
-        max-width: 560px;
-        margin: 20px auto 60px auto;
-        background: #ffffff;
-        border-radius: 18px;
-        padding: 40px 36px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-    }
+/* Card container */
+.card {
+    width: 100%;
+    max-width: 560px;
+    margin: 20px auto 80px auto;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 40px 36px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
 
-    label, .stTextInput label, .stTextArea label, .stFileUploader label {
-        color: #000000 !important;
-        font-weight: 600 !important;
-        font-size: 15px !important;
-    }
+/* Form inputs */
+label, .stTextInput label, .stTextArea label, .stFileUploader label {
+    color: #000000 !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
 
-    .stTextInput>div>div>input,
-    .stTextArea>div>div>textarea {
-        border-radius: 10px !important;
-        border: 2px solid #000000 !important;
-        padding: 14px !important;
-        font-size: 15px !important;
-        color: #000000 !important;
-        background-color: #ffffff !important;
-    }
+.stTextInput>div>div>input,
+.stTextArea>div>div>textarea {
+    border-radius: 10px !important;
+    border: 2px solid #000000 !important;
+    padding: 14px !important;
+    font-size: 15px !important;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+}
 
-    .stFileUploader > div {
-        border-radius: 10px !important;
-        border: 2px dashed #000000 !important;
-        padding: 15px !important;
-        background: #ffffff !important;
-        color: #000000 !important;
-    }
+.stFileUploader > div {
+    border-radius: 10px !important;
+    border: 2px dashed #2563eb !important;
+    padding: 15px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+}
 
-    .submit-button > button {
-        width: 100%;
-        background: linear-gradient(90deg, #2563eb, #1e40af);
-        color: white !important;
-        border-radius: 10px;
-        padding: 12px 0;
-        font-size: 16px;
-        font-weight: 600;
-        border: none;
-        transition: all 0.25s ease;
-        box-shadow: 0 4px 12px rgba(37,99,235,0.3);
-    }
-    .submit-button > button:hover {
-        background: linear-gradient(90deg, #1e3a8a, #2563eb);
-        transform: scale(1.02);
-    }
+/* Submit button */
+div.stButton > button {
+    width: 100%;
+    background: linear-gradient(90deg, #2563eb, #1e40af);
+    color: white !important;
+    border-radius: 10px;
+    padding: 14px 0;
+    font-size: 17px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
 
-    .heading {
-        text-align: center;
-        font-size: 22px;
-        font-weight: 700;
-        color: #000000 !important;
-        margin-top: 10px;
-        margin-bottom: 15px;
-    }
+div.stButton > button:hover {
+    background: linear-gradient(90deg, #1e3a8a, #2563eb);
+    transform: scale(1.03);
+}
 
-    .logo-wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 0px;
-    }
+/* Heading */
+.heading {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #000000 !important;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
 
-    .footer {
-        text-align: center;
-        color: #000000 !important;
-        margin-top: 50px;
-        font-size: 14px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+/* Logo wrapper */
+.logo-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+/* Alert message visibility */
+.stAlert {
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    color: #111 !important;
+    background: #fff5cc !important;
+    border: 1px solid #facc15 !important;
+    border-radius: 10px !important;
+    padding: 15px !important;
+}
+
+/* Footer always visible */
+.footer {
+    text-align: center;
+    color: #000000 !important;
+    margin-top: 60px;
+    font-size: 14px;
+    font-weight: 500;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # Logo Section
 logo_path_candidates = [
@@ -126,7 +143,7 @@ with st.form("candidate_form"):
     location = st.text_input("Current Location")
     tech_stack = st.text_area("Technical Skills (e.g., Python, Django, React)")
     resume = st.file_uploader("Upload Resume (PDF only)", type=["pdf"])
-    submitted = st.form_submit_button("Submit", use_container_width=True)
+    submitted = st.form_submit_button("Submit")
 
 # Validation
 def valid_email(email):
@@ -162,3 +179,4 @@ if submitted:
 
 # Footer
 st.markdown("<div class='footer'>© 2025 Issuet - Solution Based Company</div>", unsafe_allow_html=True)
+
