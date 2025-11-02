@@ -13,12 +13,7 @@ SECRET_KEY = 'django-insecure-_790tpyo5pi=wc3(m9i1n)%an#0v2p+si$m)8thg165evm8*_2
 DEBUG = True
 
 # --- Allowed hosts (Render + local) ---
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'issuet-hiring-assistant-2.onrender.com',
-    'issuet-3dxf.onrender.com'
-]
+ALLOWED_HOSTS = ['*']
 
 # --- Installed apps ---
 INSTALLED_APPS = [
